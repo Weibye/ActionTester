@@ -1,10 +1,21 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const fs = require("fs");
 
 try {
-    // `who-to-greet` input defined in action metadata file
-    const nameToGreet = core.getInput('who-to-greet');
-    console.log(`Hello ${nameToGreet}!`);
+    
+    console.log("Staring Job");
+
+    const getDirectories = source =>
+        fs.readdirSync(source, { withFileTypes: true })
+            .map(dirent => dirent.name);
+
+    getDirectories.forEach(element => {
+        console.log(element);
+    });
+
+    // const nameToGreet = core.getInput('who-to-greet');
+    // console.log(`Hello ${nameToGreet}!`);
 
     const time = (new Date()).toTimeString();
     core.setOutput("time", time);
