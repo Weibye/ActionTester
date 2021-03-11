@@ -6,16 +6,16 @@ try {
     
     console.log("Staring Job");
 
-    const getDirectories = source =>
-        fs.readdirSync(source, { withFileTypes: true })
-            .map(dirent => dirent.name);
+    const dir = GetDirectories('./examples/');
 
-    getDirectories.forEach(element => {
+    dir.forEach(element => {
         console.log(element);
     });
 
-    // const nameToGreet = core.getInput('who-to-greet');
-    // console.log(`Hello ${nameToGreet}!`);
+    // Get the readme
+    var readmeContent = fs.readFileSync('./examples/README.md').toString();
+    console.log(readmeContent);
+
 
     const time = (new Date()).toTimeString();
     core.setOutput("time", time);
@@ -25,4 +25,9 @@ try {
     console.log(`The event payload: ${payload}`);
 } catch (error) {
     core.setFailed(error.message);
+}
+
+
+function GetDirectories(directory) {
+    return fs.readdirSync(directory, { withFileTypes: true }).map(dirent => dirent.name);
 }
